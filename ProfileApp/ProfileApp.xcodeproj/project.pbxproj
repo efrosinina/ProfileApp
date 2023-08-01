@@ -11,6 +11,7 @@
 		618049612A78E99100F3AB18 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618049602A78E99100F3AB18 /* ProfileViewController.swift */; };
 		618049662A78E99200F3AB18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 618049652A78E99200F3AB18 /* Assets.xcassets */; };
 		618049692A78E99200F3AB18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 618049672A78E99200F3AB18 /* LaunchScreen.storyboard */; };
+		618049712A78EDE300F3AB18 /* UIView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618049702A78EDE300F3AB18 /* UIView+Ex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		618049652A78E99200F3AB18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		618049682A78E99200F3AB18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6180496A2A78E99200F3AB18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		618049702A78EDE300F3AB18 /* UIView+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				6180495C2A78E99100F3AB18 /* AppDelegate.swift */,
 				618049602A78E99100F3AB18 /* ProfileViewController.swift */,
+				618049702A78EDE300F3AB18 /* UIView+Ex.swift */,
 				618049652A78E99200F3AB18 /* Assets.xcassets */,
 				618049672A78E99200F3AB18 /* LaunchScreen.storyboard */,
 				6180496A2A78E99200F3AB18 /* Info.plist */,
@@ -133,6 +136,7 @@
 			files = (
 				618049612A78E99100F3AB18 /* ProfileViewController.swift in Sources */,
 				6180495D2A78E99100F3AB18 /* AppDelegate.swift in Sources */,
+				618049712A78EDE300F3AB18 /* UIView+Ex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
