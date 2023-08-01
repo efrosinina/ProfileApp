@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.swift
+//  ContentView.swift
 //  ProfileApp
 //
 //  Created by Елизавета Ефросинина on 01/08/2023.
@@ -7,24 +7,8 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ContentView: UIView {
     //MARK: -- GUI Variables
-    private lazy var scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .yellow
-        view.backgroundColor = .systemGray6
-        
-        return view
-    }()
-    
     private lazy var locationView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -81,57 +65,48 @@ class ProfileViewController: UIViewController {
     private lazy var locationImage: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "Frame")
-       // view.image
         view.translatesAutoresizingMaskIntoConstraints = false
         view.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
         
         return view
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    //MARK: -- Initialization
+    override init(frame: CGRect) {
+        super.init(frame: CGRect(x: 0, y: 0,
+                                 width: 273,
+                                 height: 244))
         setupUI()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: -- Private Methods
     private func setupUI() {
-        view.backgroundColor = .white
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubviews([imageView, nameLabel, informationLabel, locationImage, locationLabel])
-        navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationController?.navigationBar.topItem?.title = "Профиль"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        backgroundColor = .systemGray6
+        addSubviews([imageView, nameLabel, informationLabel, locationImage, locationLabel])
         
         setupConstraints()
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20),
-            contentView.heightAnchor.constraint(equalToConstant: 244),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 120),
             imageView.widthAnchor.constraint(equalToConstant: 120),
-            //informationStackView.heightAnchor.constraint(equalToConstant: 244),
-           // informationStackView.widthAnchor.constraint(equalToConstant: 273),
-           // informationStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
             nameLabel.widthAnchor.constraint(equalToConstant: 149),
             nameLabel.heightAnchor.constraint(equalToConstant: 64),
-            nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             informationLabel.centerXAnchor.constraint(equalTo: nameLabel.centerXAnchor),
-            informationLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            informationLabel.widthAnchor.constraint(equalTo: widthAnchor),
             informationLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
             locationImage.topAnchor.constraint(equalTo: informationLabel.bottomAnchor, constant: 5),
-            locationImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -30),
+            locationImage.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -30),
             locationLabel.topAnchor.constraint(equalTo: informationLabel.bottomAnchor, constant: 5),
-            locationLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 10)
-            
+            locationLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 10)
         ])
     }
 }
