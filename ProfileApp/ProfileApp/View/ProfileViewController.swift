@@ -84,7 +84,7 @@ class ProfileViewController: UIViewController {
     }()
     
     //MARK: -- Properties
-    private var dataSource = SkillModel.shared
+    private var viewModel: SkillViewModelProtocol
     var collectionViewHeight: NSLayoutConstraint?
     
     //MARK: -- Lifecycle
@@ -92,6 +92,16 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+    }
+    
+    //MARK: -- Initializations
+    init(viewModel: SkillViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: -- Private Methods
@@ -140,7 +150,8 @@ class ProfileViewController: UIViewController {
     private func editSkills() {
         editButton.setImage(UIImage(named: "checkmark"), for: .normal)
         editButton.frame.size = CGSize(width: 24, height: 24)
-        dataSource.skills.append(Skill(title: "+"))
+        //dataSource.skills.append(Skill(title: "+"))
+        viewModel.appendSkill(text: "+")
         collectionView.reloadData()
     }
 }
@@ -148,12 +159,12 @@ class ProfileViewController: UIViewController {
 //MARK: -- UICollectionViewDataSource
 extension ProfileViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.skills.count
+        return viewModel.numberOfSkills
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SkillCollectionViewCell", for: indexPath) as? SkillCollectionViewCell else { return .init() }
-        let skill = dataSource.skills[indexPath.row].title
+        let skill = viewModel.getSkill(for: indexPath.row).title
         cell.set(skill: skill)
         
         cell.backgroundColor = .systemGray6
@@ -164,7 +175,7 @@ extension ProfileViewController: UICollectionViewDataSource {
 //MARK: -- UICollectionViewDelegate
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if dataSource.skills[indexPath.row].title == "+" {
+        if viewModel.getSkill(for: indexPath.row).title == "+" {
             var userTextField: UITextField?
             
             let alert = UIAlertController(title: "Дбавление навыка",
@@ -172,8 +183,11 @@ extension ProfileViewController: UICollectionViewDelegate {
                                           preferredStyle: .alert)
             let action = UIAlertAction(title: "Добавить", style: .default) { (action) in
                 guard let newSkill = userTextField?.text else { return }
-                self.dataSource.skills.append(Skill(title: newSkill))
-                self.dataSource.skills.removeAll(where: { $0.title == "+" })
+                
+                self.viewModel.appendSkill(text: newSkill)
+                
+                self.viewModel.removeSkill(text: "+")
+                
                 self.editButton.setImage(UIImage(named: "pencil"), for: .normal)
                 collectionView.reloadData()
             }
@@ -195,7 +209,7 @@ extension ProfileViewController: UICollectionViewDelegate {
 extension ProfileViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let label = UILabel(frame: CGRect.zero)
-        label.text = dataSource.skills[indexPath.item].title
+        label.text = viewModel.getSkill(for: indexPath.item).title
         label.sizeToFit()
         return CGSize(width: label.frame.width + 10 , height: 44)
     }

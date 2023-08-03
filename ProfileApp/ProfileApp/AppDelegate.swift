@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         if let window = window {
             let navigationController = UINavigationController()
-            navigationController.viewControllers = [ProfileViewController()]
+            navigationController.viewControllers = [ProfileViewController(viewModel: SkillViewModel())]
             window.rootViewController = navigationController
             window.makeKeyAndVisible()
             
